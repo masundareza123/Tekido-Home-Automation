@@ -41,7 +41,7 @@ class LocalStorageService {
       await db.execute(
           "CREATE TABLE outputDevice(guid TEXT PRIMARY KEY, mac TEXT, type TEXT, quantity TEXT, name TEXT, version TEXT, minor TEXT, status TEXT, alias TEXT)");
       await db.execute(
-          "CREATE TABLE paired(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, inputGuid TEXT, outputGuid TEXT, inputName TEXT, outputName TEXT)");
+          "CREATE TABLE paired(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, inputGuid TEXT, outputGuid TEXT, inputName TEXT, outputName TEXT, inputQty TEXT, outputQty TEXT)");
     });
   }
 
@@ -89,21 +89,35 @@ class LocalStorageService {
   Future<List<PairedDevice>> getPairedDevice() async {
     final db = await database;
     var response = await db!.query('paired');
-    List<PairedDevice> list = response.map((c) => PairedDevice.fromMap(c)).toList();
+    List<PairedDevice> list =
+        response.map((c) => PairedDevice.fromMap(c)).toList();
     print('$response');
     return list;
   }
 
-  Future<int> updateDevice(
-    Device device,
+  Future<int> updateInputDevice(
+    Device1 device1,
     String tb,
   ) async {
     final db = await database;
     return await db!.update(
       tb,
-      device.toMap(),
+      device1.toMap(),
       where: 'guid = ?',
-      whereArgs: [device.guid],
+      whereArgs: [device1.guid],
+    );
+  }
+
+  Future<int> updateOutputDevice(
+    Device2 device2,
+    String tb,
+  ) async {
+    final db = await database;
+    return await db!.update(
+      tb,
+      device2.toMap(),
+      where: 'guid = ?',
+      whereArgs: [device2.guid],
     );
   }
 

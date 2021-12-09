@@ -65,6 +65,14 @@ class _ScanDeviceViewState extends State<ScanDeviceView> {
                           controller: model.aliasController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              labelText: "Device Alias"),
+                        ),
+                        verticalSpaceMedium,
+                        TextField(
+                          enabled: false,
+                          controller: model.nameController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
                               labelText: "Device Name"),
                         ),
                         verticalSpaceMedium,

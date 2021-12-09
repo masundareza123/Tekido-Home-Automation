@@ -92,8 +92,9 @@ class ScanDeviceViweModel extends BaseModel{
       }
     }catch(e){
       _alertService.showError(context, "Error", "Device has been registered",
-              () {
+              ()async {
                 _navigationService.replaceTo(DashboardViewRoute);
+                await _storageService.clearStorage();
           });
     }
   }

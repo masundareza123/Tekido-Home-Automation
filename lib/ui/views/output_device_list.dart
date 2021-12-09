@@ -27,10 +27,16 @@ class _OutputDeviceListState extends State<OutputDeviceList> {
           margin: EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                OutlinedButton(onPressed: (){model.movePage(ScanDeviceViewRoute);}, child: Text('Register', style: TextStyle(fontSize: 20),)),
+                OutlinedButton(
+                    onPressed: () {
+                      model.movePage(ScanDeviceViewRoute);
+                    },
+                    child: Text(
+                      'Register Device',
+                      style: TextStyle(fontSize: 20),
+                    )),
                 Container(
                   padding: EdgeInsets.only(top: 5),
                   height: MediaQuery.of(context).size.height / 1.3,
@@ -45,35 +51,35 @@ class _OutputDeviceListState extends State<OutputDeviceList> {
                           child: ListView(
                             children: devices!
                                 .map((Device2 device) => Container(
-                              margin: EdgeInsets.only(top: 10),
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                children: [
-                                  Text(device.alias,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20)),
-                                  verticalSpaceSmall,
-                                  Text(
-                                    device.name,
-                                    style:
-                                    TextStyle(color: Colors.grey),
-                                  ),
-                                  Text(
-                                    device.guid,
-                                    style:
-                                    TextStyle(color: Colors.grey),
-                                  ),
-                                  verticalSpaceTiny
-                                ],
-                              ),
-                            ))
+                                      margin: EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(device.alias,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20)),
+                                          verticalSpaceSmall,
+                                          Text(
+                                            device.name,
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                          Text(
+                                            device.guid,
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                          verticalSpaceTiny
+                                        ],
+                                      ),
+                                    ))
                                 .toList(),
                           ),
                         );

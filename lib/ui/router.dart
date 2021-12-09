@@ -4,7 +4,9 @@ import 'package:tekido_homeautomation/constants/route_name.dart';
 import 'package:tekido_homeautomation/models/model_data1.dart';
 import 'package:tekido_homeautomation/ui/views/dashboard_view.dart';
 import 'package:tekido_homeautomation/ui/views/home_paired_device_view.dart';
+import 'package:tekido_homeautomation/ui/views/input_data_list.dart';
 import 'package:tekido_homeautomation/ui/views/input_device_list.dart';
+import 'package:tekido_homeautomation/ui/views/output_data_list.dart';
 import 'package:tekido_homeautomation/ui/views/output_device_list.dart';
 import 'package:tekido_homeautomation/ui/views/paired_device_view.dart';
 import 'package:tekido_homeautomation/ui/views/qr_scanner_view.dart';
@@ -46,6 +48,16 @@ Route<dynamic> generateRoute(RouteSettings settings){
       return _pageRoute(
           routeName: settings.name,
           viewToShow: HomePairedDeviceView()
+      );
+    case InputDataListRoute:
+      return _pageRoute(
+          routeName: settings.name,
+          viewToShow: InputDataList()
+      );
+    case OutputDataListRoute:
+      return _pageRoute(
+          routeName: settings.name,
+          viewToShow: OutputDataList()
       );
     default:
       return MaterialPageRoute(

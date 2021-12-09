@@ -59,9 +59,9 @@ class PairedDeviceViewModel extends BaseModel {
 
   void showData() async {
     var inputName =
-        await _storageService.getString(localInputNameDataTemporary);
+        await _storageService.getString(localInputAliasDataTemporary);
     var outputName =
-        await _storageService.getString(localOutputNameDataTemporary);
+        await _storageService.getString(localOutputAliasDataTemporary);
     inputNameController.text = inputName!;
     outputNameController.text = outputName!;
   }
@@ -116,15 +116,27 @@ class PairedDeviceViewModel extends BaseModel {
   //   print('${device1.name} has not available');
   // }
 
-  void saveInputData(String name, String guid) async {
+  void saveInputData(String alias, String guid, String mac, String minor, String name, String quantity, String type, String version) async {
+    await _storageService.setString(localInputAliasDataTemporary, alias);
+    await _storageService.setString(localInputGuidDataTemporary , guid);
+    await _storageService.setString(localInputMacDataTemporary, mac);
+    await _storageService.setString(localInputTypeDataTemporary, type);
     await _storageService.setString(localInputNameDataTemporary, name);
-    await _storageService.setString(localInputGuidDataTemporary, guid);
+    await _storageService.setString(localInputVersionDataTemporary, version);
+    await _storageService.setString(localInputMinorDataTemporary, minor);
+    await _storageService.setString(localInputQtyDataTemporary, quantity);
     _navigationService.navigateTo(PairedDeviceViewRoute);
   }
 
-  void saveOutputData(String name, String guid) async {
+  void saveOutputData(String alias, String guid, String mac, String minor, String name, String quantity, String type, String version) async {
+    await _storageService.setString(localOutputAliasDataTemporary, alias);
+    await _storageService.setString(localOutputGuidDataTemporary , guid);
+    await _storageService.setString(localOutputMacDataTemporary, mac);
+    await _storageService.setString(localOutputTypeDataTemporary, type);
     await _storageService.setString(localOutputNameDataTemporary, name);
-    await _storageService.setString(localOutputGuidDataTemporary, guid);
+    await _storageService.setString(localOutputVersionDataTemporary, version);
+    await _storageService.setString(localOutputMinorDataTemporary, minor);
+    await _storageService.setString(localOutputQtyDataTemporary, quantity);
     _navigationService.navigateTo(PairedDeviceViewRoute);
   }
 
@@ -133,24 +145,53 @@ class PairedDeviceViewModel extends BaseModel {
         await _storageService.getString(localInputGuidDataTemporary);
     var inputName =
         await _storageService.getString(localInputNameDataTemporary);
+    var inputQty = await _storageService.getString(localOutputQtyDataTemporary);
     var outputGuid =
         await _storageService.getString(localOutputGuidDataTemporary);
     var outputName =
         await _storageService.getString(localOutputNameDataTemporary);
-
-    pairedDevice =
-        PairedDevice(inputGuid!, outputGuid!, inputName!, outputName!);
-    print ('[guid input] $inputGuid');
-    print ('[name input] $inputName');
-    print ('[guid output] $outputGuid');
-    print ('[name output] $outputName');
+    var outputQty =
+        await _storageService.getString(localOutputQtyDataTemporary);
+    pairedDevice = PairedDevice(inputGuid!, outputGuid!, inputName!,
+        outputName!, inputQty!, outputQty!);
+    print('[guid input] $inputGuid');
+    print('[name input] $inputName');
+    print('[guid output] $outputGuid');
+    print('[name output] $outputName');
     await _localStorageService.addPairedDevice(pairedDevice!);
-    await _localStorageService.deleteDevice(inputGuid, tableInput);
+    updateInputData();
     await _localStorageService.deleteDevice(outputGuid, tableOutput);
     await _storageService.clearStorage();
     _navigationService.replaceTo(DashboardViewRoute);
   }
 
+  void updateInputData () async {
+    var alias = await _storageService.getString(localInputAliasDataTemporary);
+    var guid = await _storageService.getString(localInputGuidDataTemporary);
+    var mac = await _storageService.getString(localInputMacDataTemporary);
+    var type = await _storageService.getString(localInputTypeDataTemporary);
+    var name = await _storageService.getString(localInputNameDataTemporary);
+    var version = await _storageService.getString(localInputVersionDataTemporary);
+    var minor = await _storageService.getString(localInputMinorDataTemporary);
+    var quantity = await _storageService.getString(localInputQtyDataTemporary);
+    device1 = Device1(alias!, guid!, mac!, minor!, name!, quantity!, '0', type!, version!);
+    await _localStorageService.updateInputDevice(device1!, tableInput);
+    print('[updateInputData] $type, $alias');
+  }
+
+  void updateOutputData () async {
+    var alias = await _storageService.getString(localOutputAliasDataTemporary);
+    var guid = await _storageService.getString(localOutputGuidDataTemporary);
+    var mac = await _storageService.getString(localOutputMacDataTemporary);
+    var type = await _storageService.getString(localOutputTypeDataTemporary);
+    var name = await _storageService.getString(localOutputNameDataTemporary);
+    var version = await _storageService.getString(localOutputVersionDataTemporary);
+    var minor = await _storageService.getString(localOutputMinorDataTemporary);
+    var quantity = await _storageService.getString(localOutputQtyDataTemporary);
+    device2 = Device2(alias!, guid!, mac!, minor!, name!, quantity!, '0', type!, version!);
+    await _localStorageService.updateOutputDevice(device2!, tableInput);
+    print('[updateInputData] $type, $alias');
+  }
   void movePage(String routeName) {
     _navigationService.navigateTo(routeName);
   }

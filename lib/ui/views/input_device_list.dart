@@ -27,10 +27,16 @@ class _InputDeviceListState extends State<InputDeviceList> {
           margin: EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                OutlinedButton(onPressed: (){model.movePage(ScanDeviceViewRoute);}, child: Text('Register', style: TextStyle(fontSize: 20),)),
+                OutlinedButton(
+                    onPressed: () {
+                      model.movePage(ScanDeviceViewRoute);
+                    },
+                    child: Text(
+                      'Register Device',
+                      style: TextStyle(fontSize: 20),
+                    )),
                 Container(
                   padding: EdgeInsets.only(top: 5),
                   height: MediaQuery.of(context).size.height / 1.3,
@@ -43,8 +49,7 @@ class _InputDeviceListState extends State<InputDeviceList> {
                         List<Device1>? devices = snapshot.data;
                         return Container(
                           child: ListView(
-                            children:
-                            devices!
+                            children: devices!
                                 .map((Device1 device) => Container(
                                       margin: EdgeInsets.only(top: 10),
                                       padding: EdgeInsets.all(10),
@@ -71,7 +76,8 @@ class _InputDeviceListState extends State<InputDeviceList> {
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           ),
-                                          verticalSpaceTiny
+                                          verticalSpaceTiny,
+                                          Text(device.status)
                                         ],
                                       ),
                                     ))

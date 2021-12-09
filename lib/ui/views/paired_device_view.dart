@@ -37,52 +37,30 @@ class _PairedDeviceViewState extends State<PairedDeviceView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () {
-                          model.movePage(InputDeviceListRoute);
-                        },
-                        child: const Text(
-                          "List Input Device",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: ButtonStyle(
-                          alignment: Alignment.center
-                        ),
-                      ),
-                      OutlinedButton(
-                        onPressed: () {
-                          model.movePage(OutputDeviceListRoute);
-                        },
-                        child: const Text(
-                          "List Output Device",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        style: ButtonStyle(
-                            alignment: Alignment.center
-                        ),
-                      ),
-                    ],
-                  ),
-                  verticalSpaceLarge,
-                  TextField(
-                    enabled: false,
-                    controller: model.inputNameController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Input name device"),
-                  ),
+                  Text('Select Device For Paired',
+                      style: TextStyle(color: Colors.black, fontSize: 24)),
                   verticalSpaceMedium,
-                  TextField(
-                    enabled: false,
-                    controller: model.outputNameController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Output name device"),
-                  ),
-                  verticalSpaceMedium,
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: OutlinedButton(
+                          onPressed: () {model.movePage(InputDataListRoute);},
+                          child: model.inputNameController.text.isEmpty
+                              ? Text(
+                                  'Select an Input Device',
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              : Text(model.inputNameController.text))),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: OutlinedButton(
+                          onPressed: () {model.movePage(OutputDataListRoute);},
+                          child: model.inputNameController.text.isEmpty
+                              ? Text(
+                                  'Select an Output Device',
+                                  style: TextStyle(color: Colors.grey),
+                                )
+                              : Text(model.outputNameController.text))),
+                  verticalSpaceSmall,
                   OutlinedButton(
                     onPressed: () {
                       model.savePairedData();
@@ -91,9 +69,7 @@ class _PairedDeviceViewState extends State<PairedDeviceView> {
                       "Save Data Paired",
                       style: TextStyle(color: Colors.black),
                     ),
-                    style: ButtonStyle(
-                        alignment: Alignment.center
-                    ),
+                    style: ButtonStyle(alignment: Alignment.center),
                   ),
                 ],
               ),
